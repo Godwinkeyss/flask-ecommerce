@@ -59,7 +59,7 @@
     <div class="row">
 
         {% if brand %}
-        {% for b in brand %}
+        {% for b in brand.items %}
         <div class="col-md-3 mt-3">
             <div class="card scal" >
                 <img src="{{url_for('static', filename='images/'+ b.image_1)}}" alt="{{b.name}}" class="card-img-top" height="200">
@@ -72,17 +72,49 @@
                     <p class="text-center">Price ₦{{b.price}}</p>
                 </div>
                 <div class="card-footer">
-                    <a href="#" class="float-start  btn btn-sm btn-primary">Details</a>
+                    <a href="{{url_for('single_page', id=b.id)}}" class="float-start  btn btn-sm btn-primary">Details</a>
                     <a href="#" class="float-end btn btn-sm btn-warning">Add to Cart</a>
                 </div>
             </div>
         </div>
         {% endfor %}
+         </div>
 
+         <div class="row">
+          <div class="col text-center mt-5">
+            {% if brand.has_prev %}
+            <a href="{{url_for('get_brand',id=get_b.id, page= brand.prev_num)}}" class="btn btn-sm btn-outline-info">Previous</a>
+            {% endif %}
+            {% if brand.total > 8 %}
+            {% for page_num in  brand.iter_pages(left_edge=1, right_edge=2, left_current=1, right_current=2)  %}
+  
+            {% if page_num %}
+            {% if  brand.page == page_num %}
+            <a href="{{url_for('get_brand',id=get_b.id, page=page_num)}}" class="btn btn-sm btn-info">{{page_num}}</a>
+            {% else %}
+            <a href="{{url_for('get_brand',id=get_b.id, page=page_num)}}" class="btn btn-sm btn-outline-info">{{page_num}}</a>
+            {% endif  %}
+            {% else %}
+            ...
+            {% endif %}
+          {% endfor %}
+          {% endif %}
+  
+          {% if  brand.has_next %}
+          <a href="{{url_for('get_brand',id=get_b.id, page= brand.next_num)}}" class="btn btn-sm btn-outline-info">Next</a>
+          {% endif %}
+          </div>
+       
+        </div>
+
+
+
+         <div class="row">
          {% elif get_cat_pro %}
 
 
-         {% for get_cat in get_cat_pro %}
+         {% for get_cat in get_cat_pro.items %}
+         
          <div class="col-md-3 mt-3">
             <div class="card scal" >
                 <img src="{{url_for('static', filename='images/'+ get_cat.image_1)}}" alt="{{get_cat.name}}" class="card-img-top" height="200">
@@ -95,16 +127,46 @@
                     <p class="text-center">Price ₦{{get_cat.price}}</p>
                 </div>
                 <div class="card-footer">
-                    <a href="#" class="float-start  btn btn-sm btn-primary">Details</a>
+                    <a href="{{url_for('single_page', id=get_cat.id)}}" class="float-start  btn btn-sm btn-primary">Details</a>
                     <a href="#" class="float-end btn btn-sm btn-warning">Add to Cart</a>
                 </div>
             </div>
         </div>
          {% endfor  %}
+        </div>
+          
+        <div class="row">
+          <div class="col text-center mt-5">
+            {% if get_cat_pro.has_prev %}
+            <a href="{{url_for('get_category',id=get_cat.id, page=get_cat_pro.prev_num)}}" class="btn btn-sm btn-outline-info">Previous</a>
+            {% endif %}
+            {% if get_cat_pro.total>8 %}
+            {% for page_num in get_cat_pro.iter_pages(left_edge=1, right_edge=2, left_current=1, right_current=2)  %}
+  
+            {% if page_num %}
+            {% if get_cat_pro.page == page_num %}
+            <a href="{{url_for('home',id=get_cat.id, page=page_num)}}" class="btn btn-sm btn-info">{{page_num}}</a>
+            {% else %}
+            <a href="{{url_for('home',id=get_cat.id, page=page_num)}}" class="btn btn-sm btn-outline-info">{{page_num}}</a>
+            {% endif  %}
+            {% else %}
+            ...
+            {% endif %}
+          {% endfor %}
+          {% endif %}
+  
+          {% if get_cat_pro.has_next %}
+          <a href="{{url_for('get_category',id=get_cat.id, page=get_cat_pro.next_num)}}" class="btn btn-sm btn-outline-info">Next</a>
+          {% endif %}
+          </div>
+       
+        </div>
 
+
+        <div class="row">
         {% else %}
 
-        {% for product in products %}
+        {% for product in products.items %}
         <div class="col-md-3 mt-3">
             <div class="card scal" >
                 <img src="{{url_for('static', filename='images/'+ product.image_1)}}" alt="{{product.name}}" class="card-img-top" height="200">
@@ -117,12 +179,42 @@
                     <p class="text-center">Price ₦{{product.price}}</p>
                 </div>
                 <div class="card-footer">
-                    <a href="#" class="float-start  btn btn-sm btn-primary">Details</a>
+                    <a href="{{url_for('single_page', id=product.id)}}" class="float-start  btn btn-sm btn-primary">Details</a>
                     <a href="#" class="float-end btn btn-sm btn-warning">Add to Cart</a>
                 </div>
             </div>
         </div>
         {% endfor %}
+      </div>
+      <div class="row">
+        <div class="col text-center mt-5">
+          {% if products.has_prev %}
+          <a href="{{url_for('home', page=products.prev_num)}}" class="btn btn-sm btn-outline-info">Previous</a>
+          {% endif %}
+
+          {% if products.total >8 %}
+          {% for page_num in products.iter_pages(left_edge=1, right_edge=2, left_current=1, right_current=2)  %}
+
+          {% if page_num %}
+          {% if products.page == page_num %}
+          <a href="{{url_for('home', page=page_num)}}" class="btn btn-sm btn-info">{{page_num}}</a>
+          {% else %}
+          <a href="{{url_for('home', page=page_num)}}" class="btn btn-sm btn-outline-info">{{page_num}}</a>
+          {% endif  %}
+          {% else %}
+          ...
+          {% endif %}
+        {% endfor %}
+        {% endif %}
+
+        {% if products.has_next %}
+        <a href="{{url_for('home', page=products.next_num)}}" class="btn btn-sm btn-outline-info">Next</a>
+        {% endif %}
+        </div>
+     
+      </div>
+       
+
         {% endif %}
     </div>
 </div>
