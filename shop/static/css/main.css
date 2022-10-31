@@ -6,3 +6,20 @@
 .card:hover{
     transform: scaleY(1.12);
 }
+.card img{
+    width: 100%;
+    height: 250px;
+}
+/* #s_image img{
+  margin-left: 14px;  
+}
+#s_image:first-child{
+    margin-left: -14px;
+}
+#s_image:last-child{
+    margin-left: -12px;
+} */
+/* #b_image img{
+    width: 400px;
+    height: 400px;
+} */
