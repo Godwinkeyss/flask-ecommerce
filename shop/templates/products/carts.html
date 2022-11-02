@@ -1,0 +1,115 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+{% include 'navbar.html' %}
+<div class="container mt-4">
+    {% include '_messages.html' %}
+    <div class="row bg-light table-responsive" id="no-more-table">
+        <div class="col-md-12">
+        <table class="table table-sm bg-white">
+            <thead class="bg-dark text-light">
+                <tr>
+               <th>Sr</th>
+               <th>Image</th>
+               <th>Name</th>
+               <th>Color</th>
+               <th>Qty</th>
+               <th>Price</th>
+               <th>Discount</th>
+               <th>Subtotal</th>
+               <th>Update</th>
+               <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for key, product in session['Shoppingcart'].items() %}
+
+                {% set discount = "%0.2f" |format((product.discount/100) * product.price|float) %}
+                <tr>
+                    <td data-title="Sr">{{loop.index}}</td>
+                    <td><img src="{{url_for('static', filename='images/'+ product.image)}}" alt="{{product.name}}" width="50" height="45"></td>
+                    <td data-title="Name">{{product.name}}</td>
+                    <form action="{{url_for('updatecart',code=key)}}"method="POST">
+                    <td data-title="Color">
+                        {% set colors = product.colors.split(',') %}
+                        <label for="">Colors:</label>
+                        <select name="color" id="color">
+                            <option value=" {{product.color}}" style="display:none;"> {{product.color|capitalize}}</option>
+                          {% for color in colors %}
+                            {% set col = color.split(':') %}
+                            <option value="{{col[0]}}">{{col[0] |capitalize}}</option>
+                          {% endfor %}
+                        </select>
+                       
+                    
+                    </td>
+                    <td data-title="Qty"> <input type="number" value="{{product.quantity}}" name="quantity" min="1" max="10" style="width:60px ;"> </td>
+                    <td data-title="Price">₦{{product.price}}</td>
+                    {% if product.discount>0 %}
+                    <td data-title="Discount">{{product.discount}}% &nbsp; is {{discount}}</td>
+                    {% else %}
+                    <td></td>
+                    {% endif %}
+                    {% set subtotal = product.quantity|int * product.price|float %}
+                    <td data-title="Subtotal">{{"%0.2f"|format((subtotal|float) - discount|float)}}</td>
+                    <td data-title="Update"><button type="submit" class="btn btn-sm btn-info">Update</button></td>
+                </form>
+                    <td data-title="Delete"><a href="#">Remove</a></td>
+                </tr>
+                {% endfor %}
+               
+                    <tr>
+                        <div class="filem">
+                        <td></td>
+                       
+                        <div> <td><a href="/">Continue Shopping</a></td></div>
+                       <div><td colspan="3"><h4>Tax : ₦{{tax}}</h4></td></div>
+                       <div><td colspan="4"><h4>Grand Total: ₦{{grandtotal}}</h4></td></div>
+                        
+                    </div>
+                    </tr>
+                
+               
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+
+
+<style>
+    @media screen and (max-width:800px) {
+        #no-more-table tbody,
+        #no-more-table tr,
+        #no-more-table td{
+            display: block;
+        }
+        #no-more-table thead tr{
+            position: absolute;
+            top:-9999px;
+            left: -9999px;
+        }
+        #no-more-table td{
+            position: relative;
+            padding-left: 50%;
+            border: none;
+            border-bottom: 1px solid #eee;
+        }
+        #no-more-table td::before{
+            content:attr(data-title);
+            position: absolute;
+            left: 6px;
+            font-weight: bold;
+        }
+        #no-more-table tr{
+            border-bottom: 2px solid #ccc;
+        }
+        .filem{
+            display: flex;
+            background-color: red!important;
+        }
+    }
+</style>
+
+{% endblock content %}
+
