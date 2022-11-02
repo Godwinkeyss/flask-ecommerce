@@ -54,23 +54,21 @@
                     <td data-title="Subtotal">{{"%0.2f"|format((subtotal|float) - discount|float)}}</td>
                     <td data-title="Update"><button type="submit" class="btn btn-sm btn-info">Update</button></td>
                 </form>
-                    <td data-title="Delete"><a href="#">Remove</a></td>
+                    <td data-title="Delete"><a href="{{url_for('deleteitem', id=key)}}" class="btn btn-sm btn-danger">Remove</a></td>
                 </tr>
                 {% endfor %}
                
-                    <tr>
-                        <div class="filem">
-                        <td></td>
-                       
-                        <div> <td><a href="/">Continue Shopping</a></td></div>
-                       <div><td colspan="3"><h4>Tax : ₦{{tax}}</h4></td></div>
-                       <div><td colspan="4"><h4>Grand Total: ₦{{grandtotal}}</h4></td></div>
-                        
-                    </div>
-                    </tr>
-                
+                    
                
             </tbody>
+        </table>
+        <table class="table table-sm">
+            <tr>
+                <td><a href="/">Checkout</a></td>
+                <td width="30%"></td>
+                <td colspan="3"><h5>Tax : ₦{{tax}}</h5></td>
+                <td colspan="4"><h5>Grand Total: ₦{{grandtotal}}</h5></td>
+            </tr>
         </table>
     </div>
 </div>
