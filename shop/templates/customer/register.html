@@ -1,0 +1,120 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+{% include 'navbar.html'%}
+
+{% from "_formhelpers.html" import render_field %}
+  
+<div class="container">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8 mt-4">
+            <h1 class="bg-info text-center text-white p-2">Register</h1>
+        </div>
+        <div class="col-md-2"></div>
+        <form action=""  method="post" novalidate>
+            {{ form.hidden_tag() }}
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-4">
+                    <div>
+                        {{ form.name.label }}<br>
+                        {{ form.name(size=32,class="form-control") }}<br>
+                        {% for error in form.name.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                    </div>
+                    <div>
+                        {{ form.username.label }}<br>
+                        {{ form.username(size=32,class="form-control") }}<br>
+                        {% for error in form.username.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                    </div>
+                    <div>
+                        {{ form.email.label }}<br>
+                        {{ form.email(class="form-control") }}<br>
+                        {% for error in form.email.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                    </div>
+                    <div>
+                        {{ form.password.label }}<br>
+                        {{ form.password(class="form-control") }}<br>
+                        {% for error in form.password.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                    </div>
+                    <div>
+                        {{ form.confirm.label }}<br>
+                        {{ form.confirm(class="form-control") }}<br>
+                        {% for error in form.confirm.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                    </div>
+                    <div>
+                        {{  form.profile() }}
+                    </div>
+                   
+                    <!-- {{render_field(form.name, class="form-control")}}
+                    {{render_field(form.username, class="form-control")}}
+                    {{render_field(form.email, class="form-control")}}
+                    {{render_field(form.password, class="form-control")}}
+                    {{render_field(form.confirm, class="form-control")}}
+                    {{  form.profile() }} -->
+                </div>
+                <div class="col-md-4">
+                    <div>
+                        {{ form.country.label }}<br>
+                        {{ form.country(class="form-control") }}<br>
+                        {% for error in form.country.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                    </div>
+                    <div>
+                        {{ form.city.label }}<br>
+                        {{ form.city(class="form-control") }}<br>
+                        {% for error in form.city.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                    </div>
+                    <div>
+                        {{ form.contact.label }}<br>
+                        {{ form.contact(class="form-control") }}<br>
+                        {% for error in form.contact.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                    </div>
+                    <div>
+                        {{ form.address.label }}<br>
+                        {{ form.address(class="form-control") }}<br>
+                        {% for error in form.address.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                    </div>
+                    <div>
+                        {{ form.zipcode.label }}<br>
+                        {{ form.zipcode(class="form-control") }}<br>
+                        {% for error in form.zipcode.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                    </div>
+                    <div>
+                        {{  form.submit(class="btn btn-sm btn-info  float-end") }}
+                    </div>
+                    
+                    <!-- {{render_field(form.country, class="form-control")}}
+                    {{render_field(form.city, class="form-control")}}
+                    {{render_field(form.contact, class="form-control")}}
+                    {{render_field(form.address, class="form-control")}}
+                    {{render_field(form.zipcode, class="form-control")}}
+                    {{  form.submit(class="btn btn-sm btn-info float-end") }} -->
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+{% endblock content %}

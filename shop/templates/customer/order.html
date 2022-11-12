@@ -6,43 +6,38 @@
     {% include '_messages.html' %}
     <div class="row bg-light table-responsive" id="no-more-table">
         <div class="col-md-12 col-sm-12">
+            Invoice: {{orders.invoice}}<br/>
+            Status: {{orders.status}}<br/>
+            Customer name: {{customer.name}}<br/>
+            Customer email: {{customer.email}}<br/>
+            Customer contact: {{customer.contact}}<br/><br/>
         <table class="table table-sm bg-white">
             <thead class="bg-dark text-light">
                 <tr>
                <th>Sr</th>
-               <th>Image</th>
+               
                <th>Name</th>
-               <th>Color</th>
+               <th>Colors</th>
+              
                <th>Qty</th>
                <th>Price</th>
                <th>Discount</th>
                <th>Subtotal</th>
-               <th>Update</th>
-               <th>Delete</th>
+               
             </tr>
             </thead>
             <tbody>
-                {% for key, product in session['Shoppingcart'].items() %}
+                {% for key, product in orders.orders.items() %}
 
                 {% set discount = "%0.2f" |format((product.discount/100) * product.price|float) %}
                 <tr>
                     <td data-title="Sr">{{loop.index}}</td>
-                    <td><img src="{{url_for('static', filename='images/'+ product.image)}}" alt="{{product.name}}" width="50" height="45"></td>
                     <td data-title="Name">{{product.name}}</td>
                     <form action="{{url_for('updatecart',code=key)}}"method="POST">
-                    <td data-title="Color">
-                        {% set colors = product.colors.split(',') %}
-                        <!-- <label for="">Colors:</label> -->
-                        <select name="color" id="color">
-                            <option value=" {{product.color}}" style="display:none;"> {{product.color|capitalize}}</option>
-                          {% for color in colors %}
-                            {% set col = color.split(':') %}
-                            <option value="{{col[0]}}">{{col[0] |capitalize}}</option>
-                          {% endfor %}
-                        </select>
-                       
+                        <td data-title="Colors">
+                            {{product.color|capitalize}}
+                        </td>
                     
-                    </td>
                     <td data-title="Qty"> <input type="number" value="{{product.quantity}}" class="ty" name="quantity" min="1" max="10" style="width:60px; "> </td>
                     <td data-title="Price">₦{{product.price}}</td>
                     {% if product.discount>0 %}
@@ -50,11 +45,9 @@
                     {% else %}
                     <td></td>
                     {% endif %}
-                    {% set subtotal = product.quantity|int * product.price|float %}
-                    <td data-title="Subtotal">{{"%0.2f"|format((subtotal|float) - discount|float)}}</td>
-                    <td data-title="Update"><button type="submit" class="btn btn-sm btn-info">Update</button></td>
+                    {% set subTotal = product.quantity|int * product.price|float %}
+                    <td data-title="Subtotal">{{"%0.2f"|format((subTotal|float) - discount|float)}}</td>
                 </form>
-                    <td data-title="Delete"><a href="{{url_for('deleteitem', id=key)}}" class="btn btn-sm btn-danger">Remove</a></td>
                 </tr>
                 {% endfor %}
                
@@ -79,12 +72,15 @@
 </div>
 <div class="row">
     <div class="col-md-12 d-flex bbb justify-content-between">
-        <h4><a href="{{url_for('get_order')}}" class="btn btn-success">Order Now</a></h4>
+        <h4><a href="#" class="btn btn-success">Checkout</a></h4>
         <h4>Tax : ₦{{tax}}</h4>
-        <h5>Grand Total: ₦{{grandtotal}}</h5>
-        <p><a href="{{url_for('clearcat')}}" class="btn btn-danger  btn-sm   mx-5">Clear Cart</a></p>
+        <h5>Grand Total: ₦{{grandTotal}}</h5>
+        <form action="{{url_for('get_pdf', invoice=orders.invoice)}}"method="POST">
+            <button type="submit" class="btn btn-info btn-sm text-white">Get PDF</button>
+        <!-- <p><a href="" class="btn btn-danger d-sm-block btn-sm   mx-5">Get PDF</a></p> -->
+    </form>
     </div>
-    <!-- <p><a href="{{url_for('clearcat')}}" class="btn btn-danger last btn-sm float-end  mx-5">Clear Cart</a></p> -->
+    <!-- <p><a href="#" class="btn btn-danger last btn-sm float-end  mx-5">Get PDF</a></p> -->
 </div>
 </div>
 
@@ -142,17 +138,14 @@
             height: 22px;
             width: 52px !important;
         }
-        .bbb{
-         
-        }
+        
         /* fhhghghghg */
     }
-
     @media screen and (max-width:450px) {
-     .bbb{
-        flex-direction: column;
+        .bbb{
+            flex-direction: column;
             align-items: center;
-     }
+        }
     }
 </style>
 

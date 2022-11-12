@@ -1,34 +1,42 @@
 {% extends 'layout.html' %}
 {% block content %}
 <div class="container">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/admin">Admin</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+  <nav class="navbar navbar-expand-lg bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/admin">Grapec</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-          <ul class="navbar-nav">
-            <li class="nav-item active">
-              <a class="nav-link" href="">product <span class="sr-only">(current)</span></a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/brands">Brands</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/brands">brand</a>
+              <a class="nav-link active" aria-current="page" href="/category">Category</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/category">category</a>
+              <a class="nav-link active" aria-current="page" href="/addproduct">Add product</a>
             </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Add products
-              </a>
-              
-              </div>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/addbrand">Add brand</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/addcat">Add category</a>
+            </li>
+            
+  
+           
+           
           </ul>
+          <form class="d-flex" role="search" action="{{url_for('result')}}">
+            <input class="form-control me-2" type="search" name="q" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
         </div>
-      </nav>
-</div>
-
+      </div>
+    </nav>
+  </div>
 <!--==========END NAVBAR ==============-->
 
 <div class=" mt-5">
