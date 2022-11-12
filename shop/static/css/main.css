@@ -4,11 +4,26 @@
 }
 
 .card:hover{
-    transform: scaleY(1.12);
+    transform: scaleY(1.05);
 }
 .card img{
     width: 100%;
     height: 250px;
+}
+.gra,.dropdown ul{
+    background-color: #12030a !important;
+}
+.navbar{
+    color:none;
+}
+.navbar-toggler{
+    background-color: white;
+}
+.text a,.navbar-toggler{
+    color:white !important;
+}
+.text a:hover{
+    color: #f3ab27 !important;
 }
 /* #s_image img{
   margin-left: 14px;  
